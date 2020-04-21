@@ -1,0 +1,12 @@
+{
+  "name": "bingo-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/alvinfebriando/bingo-server.git",
+  "author": "Alvin Febriando <alvinfebriando@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
