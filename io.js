@@ -19,12 +19,29 @@ const getRoomID = (rooms) => {
   return Object.values(rooms)[1];
 };
 
+const getRoomMember = (namespace, rooms) => {
+  return new Promise((resolve, reject) => {
+    namespace.to(rooms).clients((err, clients) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(clients);
+    });
+  });
+};
+
 io.on('connection', async (socket) => {
   console.log(`${socket.id} connected`);
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`);
   });
+
+  const roomMembers = await getRoomMember(io, `room-${roomNum}`);
+
+  if (roomMembers.length >= 2) {
+    roomNum++;
+  }
 
   await joinRoom(socket, roomNum);
   socket.emit('joined', { roomID: getRoomID(socket.rooms) });
